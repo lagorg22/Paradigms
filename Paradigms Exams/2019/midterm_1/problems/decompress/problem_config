@@ -1,0 +1,7 @@
+make decompress
+make -C tests run_tests
+./run_tests
++ makefile
+- decompress.h
++ tests/makefile
++ tests/tests.c

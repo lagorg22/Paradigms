@@ -1,0 +1,135 @@
+#include "counting_array.h"
+#include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
+
+void CountingArrayInit(CountingArray* a, int elem_size, CmpFn cmp_fn, FreeFn free_fn) {
+    a->alloc_len = 20;
+    a->cmp_fn = cmp_fn;
+    a->free_fn = free_fn;
+    a->log_len = 0;
+    a->elem_size = elem_size;
+    a->elems = malloc((sizeof(int) + elem_size) * a->alloc_len);
+    assert(a->elems);
+    for (int i = 0; i < a->alloc_len; ++i) {
+        int* count_target = (int*)((char*)a->elems + i * (elem_size + sizeof(int)));
+        *count_target = 0;
+    }
+}
+
+void CountingArrayDestroy(CountingArray* a) {
+    // Free each element's allocated memory if a custom free function is provided
+    if (a->free_fn) {
+        for (int i = 0; i < a->log_len; ++i) {
+            // Get the pointer to the current element
+            void* curr_elem = (char*)a->elems + i * (a->elem_size + sizeof(int)) + sizeof(int);
+            a->free_fn(curr_elem);
+        }
+    }
+
+    // Free the memory allocated for the array
+    free(a->elems);
+
+}
+
+
+int CountingArraySize(CountingArray* a) {
+    return a->log_len;
+}
+
+void* CountingArrayGet(CountingArray* a, int index) {
+    assert(index >= 0 && index < a->log_len);
+    return (char*)a->elems + index * (a->elem_size + sizeof(int)) + sizeof(int);
+}
+
+void* find(CountingArray* a, void* elem) {
+    for (int i = 0; i < a->log_len; ++i) {
+        void* curr = (char*)a->elems + i * (a->elem_size + sizeof(int)) + sizeof(int);
+        if (!a->cmp_fn(curr, elem)) return curr;
+    }
+    return NULL;
+}
+
+bool CountingArrayInsert(CountingArray* a, void* elem) {
+    // Check if element already exists
+    void* target = find(a, elem);
+    if (target) {
+        int* freq = (int*)((char*)target - sizeof(int));
+        (*freq)++;
+        return false; // Frequency incremented, no new insertion
+    }
+
+    // Reallocate memory if needed
+    if (a->log_len == a->alloc_len) {
+        a->alloc_len *= 2;
+        a->elems = realloc(a->elems, (sizeof(int) + a->elem_size) * a->alloc_len);
+        assert(a->elems);
+    }
+
+    // Find the insertion point and insert in sorted order
+    for (int i = 0; i < a->log_len; ++i) {
+        void* curr = (char*)a->elems + i * (a->elem_size + sizeof(int)) + sizeof(int);
+        if (a->cmp_fn(curr, elem) > 0) {
+            // Shift elements to make space
+            void* src = (char*)curr - sizeof(int);
+            void* dest = (char*)src + (a->elem_size + sizeof(int));
+            int size_to_move = (a->log_len - i) * (a->elem_size + sizeof(int));
+            memmove(dest, src, size_to_move);
+
+            // Insert new element
+            int* curr_freq = (int*)((char*)a->elems + i * (a->elem_size + sizeof(int)));
+            *curr_freq = 1;
+            void* place = (char*)curr_freq + sizeof(int);
+            memcpy(place, elem, a->elem_size);
+
+            a->log_len++;
+            return true; // New element inserted
+        }
+    }
+
+    // If no earlier position found, insert at the end
+    int* freq = (int*)((char*)a->elems + a->log_len * (a->elem_size + sizeof(int)));
+    *freq = 1;
+    void* place = (char*)freq + sizeof(int);
+    memcpy(place, elem, a->elem_size);
+
+    a->log_len++;
+    return true; // New element inserted
+}
+
+int find_index(CountingArray* a, void* target){
+  for(int i = 0; i < a->log_len; ++i){
+    void* curr = (char*)a->elems + i * (a->elem_size + sizeof(int)) + sizeof(int);
+    if(!a->cmp_fn(curr, target))return i;
+  }
+}
+
+void CountingArrayRemove(CountingArray* a, void* elem) {
+    void* target = find(a, elem);
+    if(!target){
+      return;
+    }
+    int* target_freq = (int*)((char*)target - sizeof(int));
+    (*target_freq)--;
+    if(!(*target_freq)){
+      int index = find_index(a, target);
+      void* dest = (char*)target - sizeof(int); 
+      void* src = (char*)dest + a->elem_size + sizeof(int);
+      int size_to_move = (a->log_len - index) * (a->elem_size + sizeof(int));
+      memmove(dest, src, size_to_move);
+      a->log_len--;
+    }
+}
+
+void CountingArrayMerge(CountingArray* a, CountingArray* o) {
+    for(int i = 0; i < o->log_len; ++i){
+      int curr_elem_count = *(int*)((char*)o->elems + i*(o->elem_size + sizeof(int)));
+      void* curr_elem = (char*)o->elems + i*(o->elem_size + sizeof(int)) + sizeof(int);
+      for(int j = 0; j < curr_elem_count; ++j){
+        CountingArrayInsert(a, curr_elem);
+        // CountingArrayRemove(o, curr_elem);
+      }
+    }
+    // CountingArrayDestroy(o);
+}

@@ -1,0 +1,7 @@
+make rugby
+make -C tests run_tests
+./run_tests
++ makefile
+- rugby.h
++ tests/makefile
++ tests/tests.c

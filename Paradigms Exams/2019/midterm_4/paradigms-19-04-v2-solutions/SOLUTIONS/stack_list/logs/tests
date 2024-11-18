@@ -1,0 +1,90 @@
+gcc -Wall -std=gnu99 -I/app/gl/../ -c stack.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/stack.o
+gcc -Wall -std=gnu99 -I/app/gl/../ -c map_list.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/map_list.o
+make: Entering directory '/exam/results/220220132547/SOLUTIONS/stack_list/tests'
+gcc -Wall -std=gnu99 -I/app/gl/../ -c tests.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/tests.o 
+OUT_DIR=/exam/results/220220132547/SOLUTIONS/stack_list/test_out make -C /app/gl/lunit lunit
+make[1]: Entering directory '/app/gl/lunit'
+gcc -Wall -std=gnu99 -I/app/gl/../ -c cmp.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/cmp.o
+OUT_DIR=/exam/results/220220132547/SOLUTIONS/stack_list/test_out make -C /app/gl/containers list
+make[2]: Entering directory '/app/gl/containers'
+gcc -Wall -std=gnu99 -I/app/gl/../ -c list.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/list.o
+make[2]: Leaving directory '/app/gl/containers'
+gcc -Wall -std=gnu99 -I/app/gl/../ -c lunit.c -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/lunit.o
+make[1]: Leaving directory '/app/gl/lunit'
+gcc  /exam/results/220220132547/SOLUTIONS/stack_list/test_out/tests.o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/stack.o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/map_list.o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/lunit.o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/cmp.o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/list.o -o /exam/results/220220132547/SOLUTIONS/stack_list/test_out/run_tests
+make: Leaving directory '/exam/results/220220132547/SOLUTIONS/stack_list/tests'
+gcc -fsanitize=address -g -I/app/gl/../ -c stack.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/stack.o
+gcc -fsanitize=address -g -I/app/gl/../ -c map_list.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/map_list.o
+make: Entering directory '/exam/results/220220132547/SOLUTIONS/stack_list/tests'
+gcc -fsanitize=address -g -I/app/gl/../ -c tests.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/tests.o 
+OUT_DIR=/exam/results/220220132547/SOLUTIONS/stack_list/mem_out make -C /app/gl/lunit lunit
+make[1]: Entering directory '/app/gl/lunit'
+gcc -fsanitize=address -g -I/app/gl/../ -I/app/gl/../ -c cmp.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/cmp.o
+OUT_DIR=/exam/results/220220132547/SOLUTIONS/stack_list/mem_out make -C /app/gl/containers list
+make[2]: Entering directory '/app/gl/containers'
+gcc -fsanitize=address -g -I/app/gl/../ -I/app/gl/../ -I/app/gl/../ -c list.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/list.o
+make[2]: Leaving directory '/app/gl/containers'
+gcc -fsanitize=address -g -I/app/gl/../ -I/app/gl/../ -c lunit.c -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/lunit.o
+make[1]: Leaving directory '/app/gl/lunit'
+gcc -fsanitize=address -g /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/tests.o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/stack.o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/map_list.o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/lunit.o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/cmp.o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/list.o -o /exam/results/220220132547/SOLUTIONS/stack_list/mem_out/run_tests
+make: Leaving directory '/exam/results/220220132547/SOLUTIONS/stack_list/tests'
+I lunit.c:47: TESTING: Ints_Push_Pop
+I lunit.c:51: TEST Ints_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Ints_Push_Pop
+I lunit.c:51: TEST Ints_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Ints_Contains
+I lunit.c:51: TEST Ints_Contains: SUCCESS
+I lunit.c:47: TESTING: Ints_Contains
+I lunit.c:51: TEST Ints_Contains: SUCCESS
+I lunit.c:47: TESTING: Ints_Contains_Unknown
+I lunit.c:51: TEST Ints_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Ints_Contains_Unknown
+I lunit.c:51: TEST Ints_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: LL_Big
+I lunit.c:51: TEST LL_Big: SUCCESS
+I lunit.c:47: TESTING: LL_Big
+I lunit.c:51: TEST LL_Big: SUCCESS
+I lunit.c:47: TESTING: LL_Big_Contains
+I lunit.c:51: TEST LL_Big_Contains: SUCCESS
+I lunit.c:47: TESTING: LL_Big_Contains
+I lunit.c:51: TEST LL_Big_Contains: SUCCESS
+I lunit.c:47: TESTING: LL_Big_Contains_Unknown
+I lunit.c:51: TEST LL_Big_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: LL_Big_Contains_Unknown
+I lunit.c:51: TEST LL_Big_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Strings_Push_Pop
+I lunit.c:51: TEST Strings_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Strings_Push_Pop
+I lunit.c:51: TEST Strings_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Strings_Contains
+I lunit.c:51: TEST Strings_Contains: SUCCESS
+I lunit.c:47: TESTING: Strings_Contains
+I lunit.c:51: TEST Strings_Contains: SUCCESS
+I lunit.c:47: TESTING: Strings_Contains_Unknown
+I lunit.c:51: TEST Strings_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Strings_Contains_Unknown
+I lunit.c:51: TEST Strings_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Structs_Push_Pop
+I lunit.c:51: TEST Structs_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Structs_Push_Pop
+I lunit.c:51: TEST Structs_Push_Pop: SUCCESS
+I lunit.c:47: TESTING: Structs_Contains
+I lunit.c:51: TEST Structs_Contains: SUCCESS
+I lunit.c:47: TESTING: Structs_Contains
+I lunit.c:51: TEST Structs_Contains: SUCCESS
+I lunit.c:47: TESTING: Structs_Contains_Unknown
+I lunit.c:51: TEST Structs_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Structs_Contains_Unknown
+I lunit.c:51: TEST Structs_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Structs_Big
+I lunit.c:51: TEST Structs_Big: SUCCESS
+I lunit.c:47: TESTING: Structs_Big
+I lunit.c:51: TEST Structs_Big: SUCCESS
+I lunit.c:47: TESTING: Structs_Big_Contains
+I lunit.c:51: TEST Structs_Big_Contains: SUCCESS
+I lunit.c:47: TESTING: Structs_Big_Contains
+I lunit.c:51: TEST Structs_Big_Contains: SUCCESS
+I lunit.c:47: TESTING: Structs_Big_Contains_Unknown
+I lunit.c:51: TEST Structs_Big_Contains_Unknown: SUCCESS
+I lunit.c:47: TESTING: Structs_Big_Contains_Unknown
+I lunit.c:51: TEST Structs_Big_Contains_Unknown: SUCCESS

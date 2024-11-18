@@ -1,0 +1,3 @@
+/home/lasha/paradigms/cmake-build-debug/CMakeFiles/dummy_target.dir
+/home/lasha/paradigms/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/lasha/paradigms/cmake-build-debug/CMakeFiles/rebuild_cache.dir
